@@ -1,3 +1,11 @@
+const url = require('./testData/url')
+const ENV = process.env.ENV
+
+if(!ENV){
+    console.log('Please use ENV variable in CLI when running test: ENV=dev|staging|prod')
+    process.exit()
+}
+
 exports.config = {
     //
     // ====================
@@ -102,7 +110,7 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'https://the-internet.herokuapp.com',
+    baseUrl: url[ENV],
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
