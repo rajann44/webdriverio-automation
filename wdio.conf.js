@@ -29,6 +29,12 @@ exports.config = {
     exclude: [
         // 'path/to/excluded/files'
     ],
+
+    // Add suites and folder path here
+    suites: {
+        smoke: ['./test/smoke/*.js',],
+        regression: ['./test/regression/*.js',]
+    },
     //
     // ============
     // Capabilities

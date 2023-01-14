@@ -1,6 +1,6 @@
-const LoginPage = require('../pages/login.page')
-const SecurePage = require('../pages/secure.page')
-const loginData = require('../testData/loginData')
+const LoginPage = require('../../pages/login.page')
+const SecurePage = require('../../pages/secure.page')
+const loginData = require('../../testData/loginData')
 
 describe('My Login application', () => {
     it('should login with valid credentials', async () => {
