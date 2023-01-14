@@ -1,3 +1,3 @@
 # webdriverio-automation
 
-Run Command: npx wdio --suite smoke
+Run Command: ENV=prod npx wdio --suite regression
