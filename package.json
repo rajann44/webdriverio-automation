@@ -4,8 +4,10 @@
   "description": "automation project with webdriverio",
   "main": "index.js",
   "scripts": {
-    "test": "wdio run ./wdio.conf.js",
-    "wdio": "wdio run ./wdio.conf.js"
+    "dev": "ENV=dev wdio run ./wdio.conf.js",
+    "staging": "ENV=staging run ./wdio.conf.js",
+    "prod": "ENV=prod wdio run ./wdio.conf.js",
+    "regression": "ENV=prod npx wdio --suite regression"
   },
   "author": "rajan",
   "license": "ISC",
