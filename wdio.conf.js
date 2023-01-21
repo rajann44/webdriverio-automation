@@ -1,5 +1,7 @@
 const url = require('./testData/url')
 const ENV = process.env.ENV
+const { TimelineService } = require('wdio-timeline-reporter/timeline-service');
+
 
 if(!ENV){
     console.log('Please use ENV variable in CLI when running test: ENV=dev|staging|prod')
@@ -126,7 +128,7 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['chromedriver'],
+    services: ['chromedriver', [TimelineService]],
     
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -148,7 +150,7 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
+    reporters: ['spec', ['timeline', { outputDir: './reports', fileName: 'index.html' }]],
 
 
     
