@@ -1,0 +1,49 @@
+name: CI with manual trigger
+  workflow_dispatch:
+    inputs:
+      which-env:
+        type: choice
+        description: 'Select where to run:'
+        required: true
+        default: 'staging'
+        options: 
+        - dev
+        - staging
+        - prod
+      message:
+        required: true
+      artifacts:
+        type: boolean
+        required: false
+        description: 'Attach Report'
+      environment:
+        type: environment
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 18
+        - name: Install
+          run: npm install
+
+        - name: Test on DEV
+          if: ${{ github.event.inputs.which-env == 'dev'}}
+          run: npm run dev
+        - name: Test on Staging
+          if: ${{ github.event.inputs.which-env == 'staging'}}
+          run: npm run staging
+        - name: Test on Prod
+          if: ${{ github.event.inputs.which-env == 'prod'}}
+          run: npm run prod
+
+        - if: github.event.inputs.artifacts == true
+          uses: actions/upload-artifact@v3
+          with:
+            name: automation-report
+            path: reports/index.html
+          if: always()
