@@ -1,4 +1,6 @@
 name: CI with manual trigger
+
+on:
   workflow_dispatch:
     inputs:
       which-env:
