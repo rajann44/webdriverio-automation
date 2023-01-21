@@ -17,3 +17,4 @@ jobs:
           with:
             name: automation-report
             path: reports/index.html
+          if: always()
