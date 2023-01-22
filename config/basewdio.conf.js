@@ -1,14 +1,4 @@
-const url = require('./testData/url')
-const ENV = process.env.ENV
-const { TimelineService } = require('wdio-timeline-reporter/timeline-service');
-
-
-if(!ENV){
-    console.log('Please use ENV variable in CLI when running test: ENV=dev|staging|prod')
-    process.exit()
-}
-
-exports.config = {
+export const config = {
     //
     // ====================
     // Runner Configuration
@@ -21,7 +11,7 @@ exports.config = {
     // Specify Test Files
     // ==================
     // Define which test specs should run. The pattern is relative to the directory
-    // from which `wdio` was called.
+    // of the configuration file being run.
     //
     // The specs are defined as an array of spec files (optionally using wildcards
     // that will be expanded). The test for each spec file will be run in a separate
@@ -33,18 +23,14 @@ exports.config = {
     // will be called from there.
     //
     specs: [
-        './test/**/*.js'
+        './test/specs/**/*.js'
     ],
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
     ],
-
-    // Add suites and folder path here
-    suites: {
-        smoke: ['./test/smoke/*.js',],
-        regression: ['./test/regression/*.js',]
-    },
+    	// Add suites and folder path here
+    suites: {},
     //
     // ============
     // Capabilities
@@ -61,7 +47,7 @@ exports.config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 2,
+    maxInstances: 10,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -74,11 +60,8 @@ exports.config = {
         // 5 instances get started at a time.
         maxInstances: 5,
         //
-        acceptInsecureCerts: true,
         browserName: 'chrome',
-        'goog:chromeOptions': { 
-             args: ["--headless", "user-agent=...","--disable-gpu","--window-size=1440,735"]
-        }
+        acceptInsecureCerts: true
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
@@ -115,7 +98,7 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: url[ENV],
+    baseUrl: 'http://localhost',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -131,7 +114,7 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['chromedriver', [TimelineService]],
+    services: ['chromedriver'],
     
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -153,7 +136,7 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec', ['timeline', { outputDir: './reports', fileName: 'index.html' }]],
+    reporters: ['spec'],
 
 
     
@@ -312,3 +295,5 @@ exports.config = {
     // onReload: function(oldSessionId, newSessionId) {
     // }
 }
+
+
